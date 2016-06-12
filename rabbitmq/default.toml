@@ -1,0 +1,25 @@
+# TCP port on which to listen for AMQP requests.
+# The default is the standard (reserved) AMQP port 5672.
+port = 5672
+
+# Disk free limit (in bytes). Once free disk space reaches this
+# lower bound, a disk alarm will be set.
+disk_free_limit = 50000000
+
+# Default user name
+default_user = "guest"
+
+# Default user password
+default_pass = "guest"
+
+# How to respond to cluster partitions.
+# Available options: ignore, pause-minority, autoheal
+cluster_partition_handling = "ignore"
+
+# Erlang cookie
+# Used for authenticating nodes in a cluster.
+# Must be an alphanumeric string of any length.
+erlang_cookie = "SUPERSECRETSTRING"
+
+# Enable the management plugin (HTTP API on port 15672)
+enable_management = "false"

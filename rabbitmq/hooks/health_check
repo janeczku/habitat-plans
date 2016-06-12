@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# RabbitMQ health check hook
+
+# default return code is 0
+rc=0
+
+cd {{pkg.svc_path}}
+export HOME={{pkg.svc_path}}/var/lib/rabbitmq
+
+sbin/rabbitmqctl node_health_check
+case $? in
+  0)
+    rc=0 ;;
+  *)
+    rc=2 ;;
+esac
+
+exit $rc

@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# RabbitMQ run hook
+
+cd {{pkg.svc_path}}
+export HOME={{pkg.svc_path}}/var/lib/rabbitmq
+sbin/rabbitmqctl reset
+exec sbin/rabbitmq-server

@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# RabbitMQ init hook
+
+# rm -rf /var/lib/rabbitmq/mnesia
+# rabbitmqctl reset
+
+# Symlinking source files in the service path
+ln -s {{pkg.path}}/* {{pkg.svc_path}}/
+
+# Create RabbitMQ home directory
+mkdir -p {{pkg.svc_path}}/var/lib/rabbitmq
+
+# Create erlang cookie
+erlang_cookie_file={{pkg.svc_path}}/var/lib/rabbitmq/.erlang.cookie
+echo -n "{{cfg.erlang_cookie}}" > $erlang_cookie_file
+chmod 600 $erlang_cookie_file
+
+# Management plugin
+if [ "{{cfg.enable_management}}" == "true" ]; then
+	echo "Management plugin enabled"
+	cd {{pkg.svc_path}}
+	export HOME={{pkg.svc_path}}/var/lib/rabbitmq
+	sbin/rabbitmq-plugins enable --offline rabbitmq_management
+else
+	echo "Management plugin disabled"
+fi
